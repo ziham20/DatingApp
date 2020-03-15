@@ -1,0 +1,35 @@
+Microsoft.EntityFrameworkCore
+Microsoft.EntityFrameworkCore.Design
+Microsoft.EntityFrameworkCore.Sqlite
+
+angular snippets
+angular files
+Angular Language Service
+Auto Rename Tag
+Bracket Pair Colorizer 2
+Debugger for Chrome
+Material Icon Theme
+Prettier - Code formatter
+tslint
+angular2-switcher
+
+
+dotnet tool install --global dotnet-ef --version 3.0
+
+dotnet ef migrations add InitialCreate
+
+
+//angular
+
+node --version
+npm install -g npm //update npm
+
+npm install -g @angular/cli
+
+ng new Dating-spa
+
+npm install boostsrap font-awesome
+
+
+npm cache clean --force
+
