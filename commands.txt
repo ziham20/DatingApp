@@ -43,3 +43,4 @@ Update-Database
 
 Install-Package System.IdentityModel.Tokens.Jwt -Version 5.6.0
 Install-Package Microsoft.IdentityModel -Version 7.0.0
+Install-Package Microsoft.AspNetCore.Authentication.JwtBearer -Version 3.1.2

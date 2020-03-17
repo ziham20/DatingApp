@@ -15,21 +15,20 @@ export class HomeComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    //this.getValues();
+    // this.getValues();
   }
 
   registerToggle() {
    // this.registerMode = !this.registerMode;
    this.registerMode = true;
   }
-
+  
+  cancelRegisterMode(registerMode: boolean){
+    this.registerMode = registerMode;
   /* getValues(){
     this.http.get('http://localhost:60885/api/values').subscribe(response=>{
         this.values = response; }, error =>  //   {    console.log(error);   });  }
   */
   
-  cancelRegisterMode(registerMode: boolean){
-    this.registerMode = registerMode;
   }
-
 }
