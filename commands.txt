@@ -33,3 +33,13 @@ npm install boostsrap font-awesome
 
 npm cache clean --force
 
+Install-Package Microsoft.EntityFrameworkCore.Sqlite
+Install-Package Microsoft.EntityFrameworkCore.Tools
+
+
+Add-Migration InitialCreate
+Update-Database
+
+
+Install-Package System.IdentityModel.Tokens.Jwt -Version 5.6.0
+Install-Package Microsoft.IdentityModel -Version 7.0.0
