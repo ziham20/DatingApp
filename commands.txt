@@ -44,3 +44,21 @@ Update-Database
 Install-Package System.IdentityModel.Tokens.Jwt -Version 5.6.0
 Install-Package Microsoft.IdentityModel -Version 7.0.0
 Install-Package Microsoft.AspNetCore.Authentication.JwtBearer -Version 3.1.2
+
+Install-Package Microsoft.AspNetCore.Mvc.NewtonsoftJson -Version 3.0.0
+
+alertifyjs
+npm install alertifyjs
+
+npm install @auth0/angular-jwt
+
+npm install ngx-bootstrap@3.0.1 --save
+
+npm install ngx-bootstrap --save
+
+npm install bootswatch.
+
+
+
+ng g guard auth --skipTests
+

@@ -15,5 +15,18 @@ namespace DatingApp.API.Helpers
             response.Headers.Add("Access-Control-Allow-Origin", "*");
         }
 
+        /// <summary>
+        ///  Calculates Age
+        /// </summary>
+        /// <param name="theDateTime">Users DOB</param>
+        /// <returns>Age</returns>
+        public static int CalculateAge(this DateTime theDateTime)
+        {
+            var age = DateTime.Today.Year - theDateTime.Year; //get age
+            if (theDateTime.AddYears(age) > DateTime.Today)  //check if they had their bd
+                age--; //reduce age by an year
+            return age;
+        }
+
     }
 }
