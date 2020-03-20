@@ -46,6 +46,7 @@ Install-Package Microsoft.IdentityModel -Version 7.0.0
 Install-Package Microsoft.AspNetCore.Authentication.JwtBearer -Version 3.1.2
 
 Install-Package Microsoft.AspNetCore.Mvc.NewtonsoftJson -Version 3.0.0
+Install-Package AutoMapper.Extensions.Microsoft.DependencyInjection -Version 7.0.0
 
 alertifyjs
 npm install alertifyjs
