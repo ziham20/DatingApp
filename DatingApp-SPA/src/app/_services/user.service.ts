@@ -4,17 +4,18 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../_models/user';
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Authorization': 'Bearer ' +  localStorage.getItem('token')
-  })
-};
+// manually get the token from local storage and add it to the request
+// const httpOptions = {
+//   headers: new HttpHeaders({
+//     'Authorization': 'Bearer ' +  localStorage.getItem('token')
+//   })
+// };
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  
+
   baseUrl = environment.apiUrl;
 
 constructor(
@@ -22,13 +23,18 @@ constructor(
   private http: HttpClient
 
 ) { }
+  // implementation for manuallly adding the token
+  // getUsers(): Observable<User[]> {
+  //   return this.http.get<User[]>(this.baseUrl + 'users', httpOptions); // get method returns an object
+  // }
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.baseUrl + 'users', httpOptions); // get method returns an object
+    return this.http.get<User[]>(this.baseUrl + '/users'); // get method returns an object
   }
 
+
   getUser(id): Observable<User> {
-    return this.http.get<User>(this.baseUrl + 'users/' + id, httpOptions);
+    return this.http.get<User>(this.baseUrl + '/users/' + id);
   }
 
 }

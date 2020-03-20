@@ -60,6 +60,9 @@ npm install ngx-bootstrap --save
 npm install bootswatch.
 
 
+https://github.com/kolkov/ngx-gallery/blob/master/README.md
+npm install @kolkov/ngx-gallery --save
+
 
 ng g guard auth --skipTests
 
