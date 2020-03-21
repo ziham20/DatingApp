@@ -1,7 +1,7 @@
-import { MemberListResolver } from './_resolvers/member-list.resolver';
+import { PrevenUnsavedChanges } from './_guards/prevent-unsaved-changes.guards';
+
 import { AuthGuard } from './_guards/auth.guard';
 import { AlertifyService } from './_services/alertify.service';
-import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { appRoutes } from './routes';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -21,13 +21,19 @@ import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
-import { MemberListComponent } from './members/member-list/member-list.component';
 import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
 import { MemberCardComponent } from './members/member-card/member-card.component';
+import { MemberDetailComponent } from './members/member-detail/member-detail.component';
+import { MemberListComponent } from './members/member-list/member-list.component';
 
 import { environment } from 'src/environments/environment';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
+import { MemberListResolver } from './_resolvers/member-list.resolver';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
+import { MemberEditResolver } from './_resolvers/member-edit.resolver';
+
+
 
 // method 1
 // export function tokenGetter() {
@@ -55,7 +61,8 @@ export function jwtOptionsFactory() {
       ListsComponent,
       MemberListComponent,
       MemberCardComponent,
-      MemberDetailComponent
+      MemberDetailComponent,
+      MemberEditComponent
 
    ],
    imports: [
@@ -92,8 +99,10 @@ export function jwtOptionsFactory() {
       ErrorInterceptorProvider,
       AlertifyService,
       AuthGuard,
+      PrevenUnsavedChanges,
       MemberDetailResolver,
-      MemberListResolver
+      MemberListResolver,
+      MemberEditResolver
    ],
    bootstrap: [
       AppComponent
