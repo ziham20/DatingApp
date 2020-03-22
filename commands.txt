@@ -64,5 +64,9 @@ https://github.com/kolkov/ngx-gallery/blob/master/README.md
 npm install @kolkov/ngx-gallery --save
 
 
+npm link
+
 ng g guard auth --skipTests
 
+
+Install-Package CloudinaryDotNet -Version 1.8.0
