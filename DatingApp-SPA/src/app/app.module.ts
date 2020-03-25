@@ -19,7 +19,7 @@ import { AuthService } from './_services/auth.service';
 import { UserService } from './_services/user.service';
 
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
-
+import {TimeAgoPipe} from 'time-ago-pipe';
 import { PrevenUnsavedChanges } from './_guards/prevent-unsaved-changes.guards';
 
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
@@ -37,6 +37,7 @@ import { MemberCardComponent } from './members/member-card/member-card.component
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
+import { TimeAgoExtendsPipe } from './_pipes/TimeAgoExtendsPipe';
 
 // method 1
 // export function tokenGetter() {
@@ -53,6 +54,7 @@ export function jwtOptionsFactory() {
      blacklistedRoutes: environment.blacklist
    };
  }
+ 
 
 @NgModule({
    declarations: [
@@ -66,7 +68,9 @@ export function jwtOptionsFactory() {
       MemberCardComponent,
       MemberDetailComponent,
       PhotoEditorComponent,
-      MemberEditComponent
+      MemberEditComponent,
+      TimeAgoExtendsPipe
+      
    ],
    imports: [
       BrowserModule,
