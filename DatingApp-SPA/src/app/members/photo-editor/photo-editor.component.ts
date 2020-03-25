@@ -64,6 +64,12 @@ export class PhotoEditorComponent implements OnInit {
 
         this.photos.push(photo);
 
+        // if pic uploaded is first photo then update nav n pro pic
+        if(photo.isMain) {
+          this.authService.changeMemberPhoto(photo.url);
+          this.authService.curentUser.photoUrl = photo.url;
+          localStorage.setItem('user', JSON.stringify(this.authService.curentUser));
+        }
       }};
     }
 
