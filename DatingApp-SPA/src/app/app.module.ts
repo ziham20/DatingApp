@@ -5,7 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
+import { BsDropdownModule, TabsModule, PaginationModule, ButtonsModule } from 'ngx-bootstrap';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { RouterModule } from '@angular/router';
 import { JwtModule , JWT_OPTIONS} from '@auth0/angular-jwt';
@@ -79,10 +79,12 @@ export function jwtOptionsFactory() {
       BrowserAnimationsModule,
       FormsModule,
       ReactiveFormsModule,
+      PaginationModule.forRoot(),
       NgxGalleryModule,
       FileUploadModule,
       BsDropdownModule.forRoot(),
       BsDatepickerModule.forRoot(),
+      ButtonsModule.forRoot(),
       TabsModule.forRoot(),
       RouterModule.forRoot(appRoutes),
       // method 2 implementaion
