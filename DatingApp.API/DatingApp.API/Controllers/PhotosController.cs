@@ -47,8 +47,9 @@ namespace DatingApp.API.Controllers
         [HttpGet("{id}", Name = "GetPhoto")]
         public async Task<IActionResult> GetPhoto(int id)
         {
+            //get photo
             var photoFromRepo = await _repo.GetPhoto(id);
-
+            //map photo to output photo object
             var photo = _mapper.Map<PhotoForReturnDto>(photoFromRepo);
             
             return Ok(photo);
@@ -61,6 +62,7 @@ namespace DatingApp.API.Controllers
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
+            //get user
             var userFromRepo = await _repo.GetUser(userId);
 
             //get the actual file
@@ -116,6 +118,75 @@ namespace DatingApp.API.Controllers
 
             return BadRequest("Could not add the photo");
 
+        }
+
+        [HttpPost("{id}/setMain")]
+        public async Task<IActionResult> SetMainPhoto(int userId, int id) 
+        {
+            //check if the user id attempting update is a part of the token
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+            //get user
+            var userFromRepo = await _repo.GetUser(userId);
+            //
+            if (!userFromRepo.Photos.Any(p => p.Id == id))
+                return Unauthorized();
+            //get photo
+            var photoFromRepo = await _repo.GetPhoto(id);
+            //check if the selected photo is main
+            if (photoFromRepo.IsMain)
+                return BadRequest("This is already the main photo");
+            //get current main photo
+            var currentMainPhoto = await _repo.GetMainPhotoForUser(userId);
+            //set current main photo to false
+            currentMainPhoto.IsMain = false;
+            //set user selected photo to true
+            photoFromRepo.IsMain = true;
+            //save
+            if (await _repo.SaveAll())
+                return NoContent();
+            
+            return BadRequest("Could not set photo to main");
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletePhoto(int userId, int id) {
+            //check if the user id attempting update is a part of the token
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+            //get user
+            var userFromRepo = await _repo.GetUser(userId);
+            //
+            if (!userFromRepo.Photos.Any(p => p.Id == id))
+                return Unauthorized();
+            //get photo
+            var photoFromRepo = await _repo.GetPhoto(id);
+            //check if the selected photo is main
+            if (photoFromRepo.IsMain)
+                return BadRequest("you cannot delete your main photo");
+
+            if (photoFromRepo.PublicID != null) 
+            {
+                var deleteParams = new DeletionParams(photoFromRepo.PublicID);
+
+                var result = _cloudinary.Destroy(deleteParams);
+
+                if (result.Result == "ok")
+                {
+                    _repo.Delete(photoFromRepo);
+                }
+            }
+
+            if (photoFromRepo.PublicID == null)
+            {
+                _repo.Delete(photoFromRepo);
+            }
+
+            //save
+            if (await _repo.SaveAll())
+                return NoContent();
+
+            return BadRequest("Failed to delete the photo");
         }
 
     }

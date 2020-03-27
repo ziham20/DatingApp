@@ -1,6 +1,10 @@
+caniuse.com
+https://www.json-generator.com/
+
 Microsoft.EntityFrameworkCore
 Microsoft.EntityFrameworkCore.Design
 Microsoft.EntityFrameworkCore.Sqlite
+
 
 angular snippets
 angular files
@@ -70,3 +74,6 @@ ng g guard auth --skipTests
 
 
 Install-Package CloudinaryDotNet -Version 1.8.0
+
+
+npm install time-ago-pipe
