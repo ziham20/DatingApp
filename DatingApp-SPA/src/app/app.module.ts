@@ -19,12 +19,12 @@ import { AuthService } from './_services/auth.service';
 import { UserService } from './_services/user.service';
 
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
-import {TimeAgoPipe} from 'time-ago-pipe';
 import { PrevenUnsavedChanges } from './_guards/prevent-unsaved-changes.guards';
 
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { MemberListResolver } from './_resolvers/member-list.resolver';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
+import { ListResolver } from './_resolvers/list.resolver';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -54,7 +54,7 @@ export function jwtOptionsFactory() {
      blacklistedRoutes: environment.blacklist
    };
  }
- 
+
 
 @NgModule({
    declarations: [
@@ -116,6 +116,7 @@ export function jwtOptionsFactory() {
       MemberDetailResolver,
       MemberListResolver,
       MemberEditResolver,
+      ListResolver,
       PrevenUnsavedChanges
 
    ],

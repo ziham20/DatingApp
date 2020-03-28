@@ -30,7 +30,6 @@ export class MemberListComponent implements OnInit {
   this.route.data.subscribe( data =>
   {
     this.users = data['users'].result;
-    console.log(data['users'].pagination);
     this.pagination = data['users'].pagination;
   });
 
