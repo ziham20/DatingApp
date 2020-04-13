@@ -3,7 +3,6 @@ import { AuthService } from './../../_services/auth.service';
 import { MessageService } from './../../_services/message.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Message } from 'src/app/_models/message';
-import { error } from 'protractor';
 
 @Component({
   selector: 'app-member-messages',
@@ -14,7 +13,8 @@ export class MemberMessagesComponent implements OnInit {
 
   @Input() recipientId: number;
   messages: Message[];
-  
+  newMessage: any = {};
+
   constructor(
 
     private messageService: MessageService,
@@ -37,6 +37,18 @@ export class MemberMessagesComponent implements OnInit {
         this.alertify.error(error);
     });
 
+  }
+
+  sendMessage()
+  {
+    this.newMessage.recipientId = this.recipientId;
+    this.messageService.sendMessage(this.authService.decodedToken.nameid, this.newMessage)
+      .subscribe( (message: Message) => {
+        this.messages.unshift(message);
+        this.newMessage.content = '';
+      }, error =>{
+        this.alertify.error(error);
+      });
   }
 
 }
