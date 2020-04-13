@@ -39,6 +39,8 @@ export class MemberMessagesComponent implements OnInit {
 
   }
 
+
+
   sendMessage()
   {
     this.newMessage.recipientId = this.recipientId;

@@ -29,7 +29,7 @@ constructor(
         let params = new HttpParams();
 
         params = params.append('MessageContainer', messageContainer);
-      
+
 
         if (page != null && itemsPerPage != null){
             params = params.append('pageNumber', page);
@@ -61,5 +61,9 @@ constructor(
         return this.http.post(this.baseUrl + '/users/' + id + '/messages', message);
       }
 
+      deleteMessage(id: number, userId: number)
+      {
+        return this.http.post(this.baseUrl + '/users/' + userId + '/messages/delete/' + id, {});
+      }
 
 }

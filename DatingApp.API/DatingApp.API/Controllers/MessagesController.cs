@@ -29,13 +29,13 @@ namespace DatingApp.API.Controllers
         }
 
         [HttpPost("{id}", Name = "GetMessage")]
-        public async Task<IActionResult> GetMessage(int userId, int id) 
+        public async Task<IActionResult> GetMessage(int userId, int id)
         {
             //check if the user id attempting get messsage is a part of the token
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            var messageFromRepo = await _repo.GetMesage(id);
+            var messageFromRepo = await _repo.GetMessage(id);
 
             if (messageFromRepo == null)
                 return NotFound();
@@ -44,7 +44,7 @@ namespace DatingApp.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetMessagesForUser(int userId,[FromQuery] MessageParams messageParams) 
+        public async Task<IActionResult> GetMessagesForUser(int userId, [FromQuery] MessageParams messageParams)
         {
             //check if the user id attempting get messsage is a part of the token
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
@@ -79,13 +79,17 @@ namespace DatingApp.API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateMessage(int userId, MessageForCreationDto messageForCreationDto)
         {
+            //to map sender details to response(auto mapper will automatically map these details)
+            var sender = await _repo.GetUser(userId);
+
             //check if the user id attempting get messsage is a part of the token
-            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            if (sender.Id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
             messageForCreationDto.SenderId = userId;
 
             var reciever = await _repo.GetUser(messageForCreationDto.RecipientId);
+
 
             if (reciever == null)
                 return BadRequest("Could not find a user");
@@ -94,14 +98,50 @@ namespace DatingApp.API.Controllers
 
             _repo.Add(message);
 
-            var messageForReturn = _mapper.Map<MessageForReturnDto>(message);
+
 
             if (await _repo.SaveAll())
+            {
+                var messageForReturn = _mapper.Map<MessageToReturnDto>(message);
                 return CreatedAtRoute("GetMessage", new { userId = userId, id = message.Id }, messageForReturn);
+            }
+
 
             throw new Exception(" Creating the message failed on save");
 
         }
 
-    }
+        [HttpPost("delete/{id}")]
+        public async Task<IActionResult> DeleteMessage(int id, int userId)
+        {
+            //check if the user id attempting get messsage is a part of the token
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var messageFromRepo = await _repo.GetMessage(id);
+
+            if (messageFromRepo.SenderId == userId)
+            {
+                messageFromRepo.SenderDeleted = true;
+            }
+
+            if (messageFromRepo.RecipientId == userId)
+            {
+                messageFromRepo.RecipientDeleted = true;
+            }
+
+            if (messageFromRepo.SenderDeleted && messageFromRepo.RecipientDeleted)
+            {
+                _repo.Delete(messageFromRepo);
+            }
+
+            if (await _repo.SaveAll())
+                return NoContent();
+
+            throw new Exception("Error deleting the message");
+
+        }
+
+    }  
+
 }
