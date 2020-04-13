@@ -13,7 +13,7 @@ using DatingApp.API.Models;
 
 namespace DatingApp.API.Controllers
 {
-    [ServiceFilter(typeof(LogUserActivity))]
+    [ServiceFilter(typeof(LogUserActivity))] //log last active time
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]

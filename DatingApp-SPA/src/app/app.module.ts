@@ -1,3 +1,4 @@
+
 import { AuthGuard } from './_guards/auth.guard';
 import { AlertifyService } from './_services/alertify.service';
 import { appRoutes } from './routes';
@@ -18,6 +19,7 @@ import { environment } from 'src/environments/environment';
 import { AuthService } from './_services/auth.service';
 import { UserService } from './_services/user.service';
 
+import { TimeAgoExtendsPipe } from './_pipes/TimeAgoExtendsPipe';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { PrevenUnsavedChanges } from './_guards/prevent-unsaved-changes.guards';
 
@@ -25,6 +27,7 @@ import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { MemberListResolver } from './_resolvers/member-list.resolver';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 import { ListResolver } from './_resolvers/list.resolver';
+import { MessagesResolver } from './_resolvers/messages.resolver';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -37,7 +40,9 @@ import { MemberCardComponent } from './members/member-card/member-card.component
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
-import { TimeAgoExtendsPipe } from './_pipes/TimeAgoExtendsPipe';
+import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
+
+
 
 // method 1
 // export function tokenGetter() {
@@ -69,8 +74,9 @@ export function jwtOptionsFactory() {
       MemberDetailComponent,
       PhotoEditorComponent,
       MemberEditComponent,
+      MemberMessagesComponent,
       TimeAgoExtendsPipe
-      
+
    ],
    imports: [
       BrowserModule,
@@ -117,6 +123,7 @@ export function jwtOptionsFactory() {
       MemberListResolver,
       MemberEditResolver,
       ListResolver,
+      MessagesResolver,
       PrevenUnsavedChanges
 
    ],
